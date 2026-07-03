@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Heartfelt Moments - </title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="env.js"></script>
+<script>
+  if (window.ENV && window.ENV.SUPABASE_URL && window.ENV.SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+    window.supabaseClient = supabase.createClient(window.ENV.SUPABASE_URL, window.ENV.SUPABASE_ANON_KEY);
+  }
+</script>
+<link href="styles.css" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .parchment-texture {
+            background-color: #fdfaeb;
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+        }
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        .confetti-slow {
+            animation: fall 10s linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#4d4354",
+                        "surface-container": "#f1eee0",
+                        "inverse-on-surface": "#f4f1e3",
+                        "background": "#fdfaeb",
+                        "surface-variant": "#e5e3d5",
+                        "surface-card": "#FFFFFF",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#313128",
+                        "surface-bright": "#fdfaeb",
+                        "surface-tint": "#842bd2",
+                        "on-secondary-container": "#721408",
+                        "primary": "#8127cf",
+                        "on-primary-container": "#fffbff",
+                        "on-primary-fixed": "#2c0051",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#ffb4a7",
+                        "primary-fixed-dim": "#ddb7ff",
+                        "tertiary": "#745b00",
+                        "on-tertiary-fixed": "#241a00",
+                        "tertiary-container": "#cca731",
+                        "on-surface": "#1c1c14",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#9c48ea",
+                        "on-tertiary-fixed-variant": "#584400",
+                        "on-tertiary-container": "#4f3d00",
+                        "surface-container-low": "#f7f4e6",
+                        "surface": "#fdfaeb",
+                        "on-secondary-fixed": "#400200",
+                        "surface-container-highest": "#e5e3d5",
+                        "on-primary-fixed-variant": "#6900b3",
+                        "tertiary-fixed": "#ffe08c",
+                        "surface-container-high": "#ebe8da",
+                        "on-background": "#1c1c14",
+                        "secondary-container": "#ff7c66",
+                        "tertiary-fixed-dim": "#eac24a",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "outline": "#7e7385",
+                        "primary-fixed": "#f0dbff",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#852214",
+                        "secondary-fixed": "#ffdad4",
+                        "outline-variant": "#cfc2d6",
+                        "celebration-blue": "#6BA3DB",
+                        "secondary": "#a63a29",
+                        "surface-dim": "#dddacd",
+                        "inverse-primary": "#ddb7ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "sm": "12px",
+                        "base": "8px",
+                        "md": "24px",
+                        "lg": "40px",
+                        "gutter": "24px",
+                        "xl": "64px",
+                        "container-max": "1200px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Bebas Neue"],
+                        "label-md": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "display-lg": ["Bebas Neue"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Bebas Neue"],
+                        "headline-lg": ["Bebas Neue"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["32px", {"lineHeight": "32px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display-lg": ["80px", {"lineHeight": "80px", "letterSpacing": "0.02em", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["36px", {"lineHeight": "36px", "fontWeight": "400"}],
+                        "headline-lg": ["48px", {"lineHeight": "48px", "letterSpacing": "0.02em", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col selection:bg-primary-fixed selection:text-on-primary-fixed overflow-x-hidden">
+
+<main class="flex-grow relative flex flex-col items-center justify-center py-xl px-md overflow-hidden">
+<div class="absolute inset-0 pointer-events-none opacity-40" style="background: radial-gradient(circle at center, #ddb7ff 0%, #fdfaeb 70%);">
+</div>
+<div class="absolute inset-0 pointer-events-none" id="confetti-container">
+</div>
+<div class="relative z-10 text-center mb-lg">
+<h1 class="font-headline-lg text-headline-lg text-primary mb-xs tracking-tight">Heartfelt Moments</h1>
+<p class="text-on-surface-variant font-body-lg text-body-lg max-w-xl mx-auto">Stories written on the heart.</p>
+</div>
+<div class="relative z-20 w-full max-w-2xl">
+<div id="desktop-candles-1" class="absolute -top-16 -left-16 w-32 h-32 floating hidden md:flex items-end gap-1" style="animation-delay: 0.2s">
+</div>
+<div id="desktop-candles-2" class="absolute -bottom-12 -right-12 w-36 h-36 floating hidden md:flex items-end gap-1" style="animation-delay: 0.8s">
+</div>
+<div id="parchment-card" class="parchment-texture rounded-xl p-md md:p-xl shadow-[0_12px_40px_rgba(129,39,207,0.2)] border-2 border-surface-variant relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 pointer-events-none">
+<div class="absolute top-4 -right-12 w-48 bg-secondary py-1 text-center text-on-secondary font-label-md text-label-md rotate-45 shadow-sm border-b-2 border-[#852214]">
+                        SECRET WISH
+                    </div>
+</div>
+<div class="flex flex-col items-center text-center space-y-md">
+<span class="material-symbols-outlined text-tertiary-container text-5xl" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<div class="space-y-base">
+<h2 class="font-headline-md text-headline-md text-on-surface">To My Dearest Friend,</h2>
+<div class="w-16 h-1 bg-tertiary-fixed-dim mx-auto rounded-full"></div>
+</div>
+<div class="relative group cursor-pointer w-full py-md" id="secret-message">
+<div class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white/60 backdrop-blur-md rounded-lg transition-all duration-500 hover:bg-white/40" id="message-overlay">
+<span class="material-symbols-outlined text-primary text-4xl mb-xs">lock</span>
+<p class="font-label-lg text-label-lg text-primary">Tap to Reveal</p>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface italic leading-relaxed px-base transition-all duration-700 opacity-0 scale-95 select-none" id="real-text" style="white-space: pre-line;">
+                            "May your year be as bright as your smile and as warm as your heart. You've been the light in our lives through every season, and today we celebrate the incredible soul that you are. Here's to more laughter, more adventures, and the beautiful future waiting for you."
+                        </p>
+</div>
+<div class="pt-base">
+<p class="font-label-lg text-label-lg text-on-surface-variant" id="sender-signature">— From the JoyfulWishes Team</p>
+</div>
+</div>
+<div data-html2canvas-ignore class="mt-xl flex flex-col sm:flex-row gap-base justify-center items-center">
+<button id="share-btn" class="w-full sm:w-auto flex items-center justify-center gap-xs bg-secondary text-on-secondary px-lg py-base rounded-full font-label-lg text-label-lg hover:scale-105 transition-transform border-b-2 border-[#852214] shadow-md group">
+<span class="material-symbols-outlined text-xl group-hover:rotate-12 transition-transform">share</span>
+                        Share the Joy
+                    </button>
+<button id="save-btn" class="w-full sm:w-auto flex items-center justify-center gap-xs bg-surface-container-high text-on-surface px-lg py-base rounded-full font-label-lg text-label-lg hover:bg-surface-variant transition-colors border-2 border-outline-variant shadow-sm group">
+<span class="material-symbols-outlined text-xl group-hover:scale-125 transition-transform" data-weight="fill">bookmark</span>
+                        Save Memory
+                    </button>
+</div>
+<div class="mt-base flex justify-center hidden" id="audio-player-container">
+    <div class="flex items-center gap-2 px-4 py-2 bg-surface-container-low border-2 border-outline-variant rounded-full shadow-md">
+        <button id="audio-toggle-btn" class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center hover:scale-110 transition-transform shadow-sm">
+            <span class="material-symbols-outlined text-[20px]" id="audio-toggle-icon" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+        </button>
+        <span class="font-label-md text-label-md text-on-surface-variant tracking-wider" id="audio-status-label">🎵 MUSIC PAUSED</span>
+    </div>
+</div>
+</div>
+<div id="mobile-candles" class="flex justify-center gap-1 mt-md md:hidden items-end">
+</div>
+</div>
+</main>
+
+<script>
+        const messageOverlay = document.getElementById('message-overlay');
+        const secretMessage = document.getElementById('secret-message');
+        const realText = document.getElementById('real-text');
+
+        secretMessage.addEventListener('click', () => {
+            messageOverlay.classList.add('opacity-0', 'pointer-events-none', 'scale-110');
+            realText.classList.remove('opacity-0', 'scale-95');
+            realText.classList.add('opacity-100', 'scale-100');
+        });
+
+        const confettiContainer = document.getElementById('confetti-container');
+        const colors = ['#8127cf', '#a63a29', '#6BA3DB', '#cca731', '#ffb4a7'];
+
+        function createConfetti() {
+            for (let i = 0; i < 40; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'absolute confetti-slow w-2 h-4 rounded-sm';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 5 + 's';
+                confetti.style.opacity = Math.random();
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                confettiContainer.appendChild(confetti);
+            }
+        }
+        createConfetti();
+
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => {
+                btn.style.transform = 'translateY(2px)';
+            });
+            btn.addEventListener('mouseup', () => {
+                btn.style.transform = 'translateY(0px)';
+            });
+        });
+
+        
+        function parsePipeFormat(str) {
+            const parts = str.split('|');
+            return {
+                name: parts[0] || '',
+                age: parts[1] || '',
+                sender: parts[2] || '',
+                message: parts[3] || '',
+                audio: parts[4] || '',
+                audioStart: parts[5] || '',
+                longMsg: parts[6] === '1',
+                longMsgTxt: parts[7] || ''
+            };
+        }
+
+        async function decodeHash() {
+            let hash = window.location.hash.substring(1);
+            if (!hash) return null;
+            
+            let paramsIndex = hash.indexOf('?');
+            if (paramsIndex !== -1) {
+                hash = hash.substring(0, paramsIndex);
+            }
+            
+            try {
+                if (hash.length === 6 && window.supabaseClient) {
+                    const { data, error } = await window.supabaseClient
+                        .from('cards')
+                        .select('*')
+                        .eq('id', hash)
+                        .single();
+                    
+                    if (!error && data) {
+                        return {
+                            name: data.name,
+                            age: data.age,
+                            sender: data.sender,
+                            message: data.message,
+                            audio: data.audio,
+                            audioStart: data.audio_start,
+                            longMsg: data.long_msg,
+                            longMsgTxt: data.long_msg_txt
+                        };
+                    }
+                }
+
+                const decompressed = LZString.decompressFromEncodedURIComponent(hash);
+                if (decompressed) {
+                    if (decompressed.startsWith('{')) {
+                        return JSON.parse(decompressed);
+                    }
+                    return parsePipeFormat(decompressed);
+                }
+                
+                let b64 = hash.replace(/-/g, '+').replace(/_/g, '/');
+                while (b64.length % 4) {
+                    b64 += '=';
+                }
+                const jsonString = decodeURIComponent(escape(atob(b64)));
+                return JSON.parse(jsonString);
+            } catch (e) {
+                console.error("Failed to decode card data:", e);
+                return null;
+            }
+        }
+
+        function getQueryParams() {
+            let hash = window.location.hash;
+            let paramsIndex = hash.indexOf('?');
+            if (paramsIndex === -1) return {};
+            
+            const queryString = hash.substring(paramsIndex + 1);
+            const urlParams = new URLSearchParams(queryString);
+            return Object.fromEntries(urlParams);
+        }
+
+        async function init() {
+            const cardData = await decodeHash();
+            const queryParams = getQueryParams();
+
+            if (cardData) {
+                const msgToDisplay = cardData.longMsgTxt || cardData.message;
+                document.getElementById('real-text').textContent = `"${msgToDisplay}"`;
+                document.getElementById('sender-signature').textContent = `— With love, ${cardData.sender}`;
+
+                const ageString = (cardData.age || '5').toString();
+                const d1 = document.getElementById('desktop-candles-1');
+                const d2 = document.getElementById('desktop-candles-2');
+                const m = document.getElementById('mobile-candles');
+
+                const createCandles = (container) => {
+                    if (!container) return;
+                    for (let i = 0; i < ageString.length; i++) {
+                        const digit = ageString[i];
+                        const img = document.createElement('img');
+                        img.src = `img/${digit}.png`;
+                        img.className = 'w-12 h-16 md:w-16 md:h-24 object-contain';
+                        img.alt = `Candle ${digit}`;
+                        container.appendChild(img);
+                    }
+                };
+                
+                createCandles(d1);
+                createCandles(d2);
+                createCandles(m);
+
+                if (cardData.audio) {
+                    const audioObj = new Audio(cardData.audio);
+                    audioObj.loop = true;
+                    
+                    let startTime = 0;
+                    if (queryParams.t) {
+                        startTime = parseFloat(queryParams.t);
+                    } else if (cardData.audioStart) {
+                        const parts = cardData.audioStart.split(':');
+                        if (parts.length === 2) {
+                            startTime = (parseInt(parts[0]) || 0) * 60 + (parseInt(parts[1]) || 0);
+                        } else {
+                            startTime = parseInt(cardData.audioStart) || 0;
+                        }
+                    }
+                    
+                    audioObj.addEventListener('loadedmetadata', () => {
+                        if (startTime > 0 && !isNaN(startTime)) {
+                            audioObj.currentTime = startTime;
+                        }
+                        audioObj.play().catch(err => {
+                            console.warn("Autoplay blocked by browser. User interaction needed.", err);
+                            secretMessage.addEventListener('click', () => {
+                                audioObj.play().catch(e => console.warn(e));
+                            }, { once: true });
+                        });
+                    });
+                    
+                    if (audioObj.readyState >= 1) {
+                        if (startTime > 0 && !isNaN(startTime)) {
+                            audioObj.currentTime = startTime;
+                        }
+                        audioObj.play().catch(e => console.warn(e));
+                    }
+
+                    const audioPlayerContainer = document.getElementById('audio-player-container');
+                    const audioToggleBtn = document.getElementById('audio-toggle-btn');
+                    const audioToggleIcon = document.getElementById('audio-toggle-icon');
+                    const audioStatusLabel = document.getElementById('audio-status-label');
+                    
+                    audioPlayerContainer.classList.remove('hidden');
+
+                    function updateAudioUI() {
+                        if (audioObj.paused) {
+                            audioToggleIcon.textContent = 'play_arrow';
+                            audioStatusLabel.textContent = '🎵 MUSIC PAUSED';
+                            audioStatusLabel.classList.remove('animate-pulse');
+                        } else {
+                            audioToggleIcon.textContent = 'pause';
+                            audioStatusLabel.textContent = '🎵 PLAYING';
+                            audioStatusLabel.classList.add('animate-pulse');
+                        }
+                    }
+
+                    audioToggleBtn.addEventListener('click', () => {
+                        if (audioObj.paused) {
+                            audioObj.play().catch(e => console.warn("Play failed", e));
+                        } else {
+                            audioObj.pause();
+                        }
+                    });
+
+                    audioObj.addEventListener('play', updateAudioUI);
+                    audioObj.addEventListener('pause', updateAudioUI);
+                    updateAudioUI();
+                }
+            }
+
+            const shareBtn = document.getElementById('share-btn');
+            if (shareBtn) {
+                shareBtn.addEventListener('click', async () => {
+                    const shareData = {
+                        title: 'Heartfelt Moments',
+                        text: 'A sacred corner for memories.',
+                        url: window.location.href
+                    };
+                    if (navigator.share) {
+                        try {
+                            await navigator.share(shareData);
+                        } catch (err) {
+                            console.error('Error sharing:', err);
+                        }
+                    } else {
+                        navigator.clipboard.writeText(window.location.href);
+                        alert("Link copied to clipboard!");
+                    }
+                });
+            }
+
+            const saveBtn = document.getElementById('save-btn');
+            if (saveBtn) {
+                saveBtn.addEventListener('click', () => {
+                    if (messageOverlay && !messageOverlay.classList.contains('opacity-0')) {
+                        messageOverlay.classList.add('opacity-0', 'pointer-events-none', 'scale-110');
+                        realText.classList.remove('opacity-0', 'scale-95');
+                        realText.classList.add('opacity-100', 'scale-100');
+                    }
+                    
+                    const cardEl = document.getElementById('parchment-card');
+                    html2canvas(cardEl, {
+                        backgroundColor: null,
+                        scale: 2
+                    }).then(canvas => {
+                        const link = document.createElement('a');
+                        link.download = 'Heartfelt_Memory.png';
+                        link.href = canvas.toDataURL('image/png');
+                        link.click();
+                    });
+                });
+            }
+        }
+        
+        init();
+    </script>
+</body></html>

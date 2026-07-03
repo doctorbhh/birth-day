@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Your Birthday Card</title>
+  <meta name="description" content="Craft a beautiful, personalized birthday greeting card and share it with a unique link." />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="env.js"></script>
+  <script>
+    if (window.ENV && window.ENV.SUPABASE_URL && window.ENV.SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+      window.supabaseClient = supabase.createClient(window.ENV.SUPABASE_URL, window.ENV.SUPABASE_ANON_KEY);
+    }
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Decorative blobs -->
+  <div class="blob blob-1" aria-hidden="true"></div>
+  <div class="blob blob-2" aria-hidden="true"></div>
+  <div class="blob blob-3" aria-hidden="true"></div>
+
+  <!-- ─── Floating confetti decorations ─── -->
+  <div class="confetti-dot confetti-1" aria-hidden="true"></div>
+  <div class="confetti-dot confetti-2" aria-hidden="true"></div>
+  <div class="confetti-dot confetti-3" aria-hidden="true"></div>
+  <div class="confetti-dot confetti-4" aria-hidden="true"></div>
+  <div class="confetti-dot confetti-5" aria-hidden="true"></div>
+
+  <header class="top-nav" id="top-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="brand-logo">BirthdayBox</a>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link active">Create</a>
+      </nav>
+      <button class="nav-cta" id="nav-share-btn" aria-label="Share this website">
+        <span class="material-symbols-outlined" style="font-size:18px">ios_share</span>
+        Share
+      </button>
+      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation menu">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="main-canvas">
+    <div class="hero-grid">
+
+      <div class="showcase-col">
+        <div class="showcase-card">
+          <div class="showcase-badge">
+            <span class="material-symbols-outlined" style="font-size:16px">auto_awesome</span>
+            Create Magic
+          </div>
+          <div class="showcase-visual">
+            <div class="showcase-cake-emoji">🎂</div>
+            <div class="showcase-text">
+              <span class="showcase-title">Make Someone's Day</span>
+              <span class="showcase-subtitle">Craft a personal, interactive birthday card they'll never forget.</span>
+            </div>
+          </div>
+          <div class="showcase-features">
+            <div class="showcase-feature">
+              <span class="material-symbols-outlined filled feature-icon">cake</span>
+              <span>Interactive candle blowing</span>
+            </div>
+            <div class="showcase-feature">
+              <span class="material-symbols-outlined filled feature-icon">music_note</span>
+              <span>Custom background music</span>
+            </div>
+            <div class="showcase-feature">
+              <span class="material-symbols-outlined filled feature-icon">celebration</span>
+              <span>Confetti explosion</span>
+            </div>
+            <div class="showcase-feature">
+              <span class="material-symbols-outlined filled feature-icon">link</span>
+              <span>Shareable unique link</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-col">
+        <div class="form-card" id="form-card">
+
+          <div class="card-color-strip"></div>
+
+          <div class="form-state" id="state-form">
+            <div class="form-header">
+              <h1 class="form-title">Create Your Card</h1>
+              <p class="form-subtitle">Fill in the details to craft a beautiful, personalized birthday greeting.</p>
+            </div>
+
+            <form id="create-card-form" class="card-form" autocomplete="off">
+              <div class="field-group">
+                <label for="recipient-name" class="field-label">Recipient's Name <span class="required">*</span></label>
+                <div class="input-wrapper">
+                  <span class="material-symbols-outlined input-icon">person</span>
+                  <input type="text" id="recipient-name" name="recipient-name" placeholder="e.g. Alex" required class="field-input" />
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label for="age" class="field-label">Their Age</label>
+                <div class="input-wrapper">
+                  <span class="material-symbols-outlined input-icon">cake</span>
+                  <input type="number" id="age" name="age" min="1" max="120" placeholder="e.g. 25" class="field-input" />
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label for="sender-name" class="field-label">Your Name <span class="required">*</span></label>
+                <div class="input-wrapper">
+                  <span class="material-symbols-outlined input-icon">edit</span>
+                  <input type="text" id="sender-name" name="sender-name" placeholder="e.g. Jamie" required class="field-input" />
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label for="message" class="field-label">Heartfelt Message <span class="required">*</span></label>
+                <div class="input-wrapper textarea-wrapper">
+                  <span class="material-symbols-outlined input-icon textarea-icon">favorite</span>
+                  <textarea id="message" name="message" rows="4" placeholder="Wishing you the happiest of birthdays..." required class="field-input field-textarea"></textarea>
+                </div>
+                <span class="char-counter" id="char-counter">0 / 150</span>
+              </div>
+
+              <div class="field-group" style="flex-direction: row; align-items: center; gap: 8px; margin-bottom: 8px;">
+                <input type="checkbox" id="long-msg" name="long-msg" style="width: 18px; height: 18px; accent-color: var(--primary);" onchange="document.getElementById('long-message-container').style.display = this.checked ? 'block' : 'none';" />
+                <label for="long-msg" class="field-label" style="margin-bottom: 0;">Enable 'Heartfelt Moments' (for long messages)</label>
+              </div>
+
+              <div class="field-group" id="long-message-container" style="display: none; margin-bottom: 16px;">
+                <div class="input-wrapper textarea-wrapper" style="min-height: 150px;">
+                  <span class="material-symbols-outlined input-icon textarea-icon">edit_note</span>
+                  <textarea id="long-message" name="long-message" rows="6" placeholder="Write your long, heartfelt letter here..." class="field-input field-textarea"></textarea>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label for="audio-url" class="field-label">Birthday Song URL</label>
+                <div class="input-wrapper">
+                  <span class="material-symbols-outlined input-icon">music_note</span>
+                  <input type="url" id="audio-url" name="audio-url" value="https://aac.saavncdn.com/717/23a1faa2832e054bc1a2cfef68d4c713_320.mp4" placeholder="https://example.com/birthday-song.mp3" class="field-input" />
+                </div>
+                <span class="field-hint">Paste a direct link to an .mp3 or audio file</span>
+              </div>
+
+              <div class="field-group">
+                <label for="audio-start" class="field-label">Song Start Time</label>
+                <div class="input-wrapper">
+                  <span class="material-symbols-outlined input-icon">timer</span>
+                  <input type="text" id="audio-start" name="audio-start" placeholder="e.g. 0:45 or 1:30" pattern="[0-9]{1,3}:[0-5][0-9]" class="field-input" />
+                </div>
+                <span class="field-hint">Start the song from this timestamp (mm:ss)</span>
+              </div>
+
+              <button type="submit" class="submit-btn" id="submit-btn">
+                <span class="material-symbols-outlined filled" style="font-size:20px">celebration</span>
+                Create Card
+              </button>
+            </form>
+          </div>
+
+          <div class="envelope-state hidden" id="state-envelope">
+            <div class="envelope-scene">
+              <div class="mini-card" id="mini-card">
+                <div class="mini-card-strip"></div>
+                <div class="mini-card-icon">🎂</div>
+                <div class="mini-card-name" id="mini-card-name">Happy Birthday!</div>
+              </div>
+
+              <div class="envelope" id="envelope">
+                <div class="envelope-back"></div>
+                <div class="envelope-front"></div>
+                <div class="envelope-flap" id="envelope-flap"></div>
+                <div class="envelope-seal" id="envelope-seal">
+                  <span class="material-symbols-outlined filled" style="font-size:24px;color:#fff">favorite</span>
+                </div>
+              </div>
+            </div>
+            <p class="envelope-status" id="envelope-status">Preparing your card…</p>
+          </div>
+
+          <div class="link-state hidden" id="state-link">
+            <div class="link-success-icon">
+              <span class="material-symbols-outlined filled">check_circle</span>
+            </div>
+            <h2 class="link-title">Your Card is Ready!</h2>
+            <p class="link-subtitle">Share this magic link with the birthday person:</p>
+
+            <div class="link-box" id="link-box">
+              <input type="text" readonly class="link-input" id="link-input" />
+              <button class="copy-btn" id="copy-btn" title="Copy link">
+                <span class="material-symbols-outlined" id="copy-icon">content_copy</span>
+              </button>
+            </div>
+            <p class="copy-feedback hidden" id="copy-feedback">
+              <span class="material-symbols-outlined" style="font-size:16px">check</span> Copied to clipboard!
+            </p>
+
+            <div class="link-actions">
+              <a href="#" class="preview-btn" id="preview-btn" target="_blank">
+                <span class="material-symbols-outlined" style="font-size:18px">visibility</span>
+                Preview Card
+              </a>
+              <button class="new-card-btn" id="new-card-btn">
+                <span class="material-symbols-outlined" style="font-size:18px">add</span>
+                Create Another
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">BirthdayBox</div>
+      <div class="footer-copy">&copy; 2026 BirthdayBox — ❤️ bharath</div>
+    </div>
+  </footer>
+
+  <script src="create.js"></script>
+  <script>
+    document.getElementById('nav-share-btn').addEventListener('click', async () => {
+      const shareData = {
+        title: 'BirthdayBox - Create a magic birthday card',
+        text: 'Craft a personal, interactive birthday card they\'ll never forget.',
+        url: window.location.href
+      };
+      if (navigator.share) {
+        try {
+          await navigator.share(shareData);
+        } catch (err) {
+          console.error('Error sharing:', err);
+        }
+      } else {
+        navigator.clipboard.writeText(window.location.href);
+        alert("Website link copied to clipboard!");
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "name": "joyfulwishes",
+  "version": "1.0.0",
+  "description": "Birthday card generator",
+  "scripts": {
+    "build": "node -e \"const fs = require('fs'); fs.writeFileSync('env.js', 'window.ENV = { SUPABASE_URL: \\'' + process.env.SUPABASE_URL + '\\', SUPABASE_ANON_KEY: \\'' + process.env.SUPABASE_ANON_KEY + '\\' };');\""
+  }
+}
