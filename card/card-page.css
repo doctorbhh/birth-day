@@ -886,6 +886,7 @@
   opacity: 0.9;
   box-shadow: inset -5px -5px 15px rgba(0, 0, 0, 0.1);
   pointer-events: none;
+  will-change: transform;
 }
 
 .balloon::after {
@@ -927,28 +928,191 @@
 }
 
 .heartfelt-btn {
+  position: relative;
   display: inline-flex;
+  justify-content: center;
   align-items: center;
-  gap: 8px;
-  margin-top: 24px;
-  padding: 12px 24px;
-  background: var(--secondary);
-  color: var(--on-secondary);
-  font-family: "Inter", sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  border-radius: var(--radius-full);
-  box-shadow: 0 4px 12px var(--shadow-primary);
-  border-bottom: 2px solid #852214;
-  transition: all 0.2s ease;
+  border-radius: 5px;
+  background: #fd1853;
+  font-family: "Montserrat", sans-serif;
+  overflow: hidden;
+  border: none;
   cursor: pointer;
+  margin-top: 24px;
+}
+
+.heartfelt-btn.hidden {
+  display: none !important;
+}
+
+.heartfelt-btn:after {
+  content: " ";
+  width: 0%;
+  height: 100%;
+  background: #fff;
+  position: absolute;
+  transition: all 0.4s ease-in-out;
+  right: 0;
+}
+
+.heartfelt-btn:hover::after {
+  right: auto;
+  left: 0;
+  width: 100%;
+}
+
+.heartfelt-btn span.box {
+  text-align: center;
   text-decoration: none;
+  width: 100%;
+  padding: 18px 25px;
+  color: #fffcfd;
+  font-size: 1.125em;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  z-index: 20;
+  transition: all 0.3s ease-in-out;
+}
+
+.heartfelt-btn:hover span.box {
+  animation: scaleUp 0.3s ease-in-out;
+  color: #fd1853;
 }
 
 .heartfelt-btn:hover {
-  transform: translateY(-2px);
-  background: #c3432f; 
+  animation: scaleUp 0.3s ease-in-out;
+}
+
+@keyframes scaleUp {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+.heartfelt-btn .star-1 {
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  width: 25px;
+  height: auto;
+  filter: drop-shadow(0 0 0 #fd1853);
+  z-index: -5;
+  transition: all 1s cubic-bezier(0.05, 0.83, 0.43, 0.96);
+}
+
+.heartfelt-btn .star-2 {
+  position: absolute;
+  top: 45%;
+  left: 45%;
+  width: 15px;
+  height: auto;
+  filter: drop-shadow(0 0 0 #fd1853);
+  z-index: -5;
+  transition: all 1s cubic-bezier(0, 0.4, 0, 1.01);
+}
+
+.heartfelt-btn .star-3 {
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  width: 5px;
+  height: auto;
+  filter: drop-shadow(0 0 0 #fd1853);
+  z-index: -5;
+  transition: all 1s cubic-bezier(0, 0.4, 0, 1.01);
+}
+
+.heartfelt-btn .star-4 {
+  position: absolute;
+  top: 20%;
+  left: 40%;
+  width: 8px;
+  height: auto;
+  filter: drop-shadow(0 0 0 #fd1853);
+  z-index: -5;
+  transition: all .8s cubic-bezier(0, 0.4, 0, 1.01);
+}
+
+.heartfelt-btn .star-5 {
+  position: absolute;
+  top: 25%;
+  left: 45%;
+  width: 15px;
+  height: auto;
+  filter: drop-shadow(0 0 0 #fd1853);
+  z-index: -5;
+  transition: all .6s cubic-bezier(0, 0.4, 0, 1.01);
+}
+
+.heartfelt-btn .star-6 {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  width: 5px;
+  height: auto;
+  filter: drop-shadow(0 0 0 #fd1853);
+  z-index: -5;
+  transition: all .8s ease;
+}
+
+.heartfelt-btn:hover .star-1 {
+  position: absolute;
+  top: -2%;
+  left: 0%;
+  width: 25px;
+  height: auto;
+  filter: drop-shadow(0 0 10px #fd1853);
+  z-index: 2;
+}
+
+.heartfelt-btn:hover .star-2 {
+  position: absolute;
+  top: 34%;
+  left: 41.5%;
+  width: 15px;
+  height: auto;
+  filter: drop-shadow(0 0 10px #fd1853);
+  z-index: 2;
+}
+
+.heartfelt-btn:hover .star-3 {
+  position: absolute;
+  top: 55%;
+  left: 25%;
+  width: 5px;
+  height: auto;
+  filter: drop-shadow(0 0 10px #fd1853);
+  z-index: 2;
+}
+
+.heartfelt-btn:hover .star-4 {
+  position: absolute;
+  top: 0%;
+  left: 55%;
+  width: 8px;
+  height: auto;
+  filter: drop-shadow(0 0 10px #fd1853);
+  z-index: 2;
+}
+
+.heartfelt-btn:hover .star-5 {
+  position: absolute;
+  top: 25%;
+  left: 85%;
+  width: 15px;
+  height: auto;
+  filter: drop-shadow(0 0 10px #fd1853);
+  z-index: 2;
+}
+
+.heartfelt-btn:hover .star-6 {
+  position: absolute;
+  top: 75%;
+  left: 60%;
+  width: 5px;
+  height: auto;
+  filter: drop-shadow(0 0 10px #fd1853);
+  z-index: 2;
 }
 
 @media (max-width: 960px) {

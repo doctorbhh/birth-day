@@ -127,6 +127,15 @@
   function blowCandles() {
     if (isBlown) return;
     isBlown = true;
+    
+    if (micStream) {
+      micStream.getTracks().forEach(t => t.stop());
+      micStream = null;
+    }
+    if (audioContext && audioContext.state !== 'closed') {
+      audioContext.close();
+      audioContext = null;
+    }
 
     const candles = document.querySelectorAll('.number-candle');
 
